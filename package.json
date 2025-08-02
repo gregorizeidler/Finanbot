@@ -1,0 +1,54 @@
+{
+  "name": "finanbot",
+  "version": "1.0.0",
+  "description": "FinanBot - Assistente IA para Finanças Pessoais com Open Finance",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "cd backend && npm start",
+    "start:frontend": "cd frontend && npm start",
+    "setup": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "db:setup": "cd backend && npm run db:generate && npm run db:migrate && npm run db:seed",
+    "db:migrate": "cd backend && npm run db:migrate",
+    "db:seed": "cd backend && npm run db:seed",
+    "db:studio": "cd backend && npm run db:studio",
+    "lint": "npm run lint:backend && npm run lint:frontend",
+    "lint:backend": "cd backend && npm run lint",
+    "lint:frontend": "cd frontend && npm run lint",
+    "clean": "rm -rf node_modules backend/node_modules frontend/node_modules backend/dist frontend/.next"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "finanbot",
+    "open-finance",
+    "ai",
+    "chatbot",
+    "finances",
+    "personal-finance",
+    "nextjs",
+    "nodejs",
+    "typescript"
+  ],
+  "author": "FinanBot Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/finanbot/finanbot.git"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+} 

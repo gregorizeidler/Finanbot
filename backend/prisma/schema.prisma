@@ -1,0 +1,198 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  accounts     BankAccount[]
+  connections  OpenFinanceConnection[]
+  messages     ChatMessage[]
+  insights     FinancialInsight[]
+
+  @@map("users")
+}
+
+model BankAccount {
+  id            String      @id @default(cuid())
+  userId        String
+  bankCode      String
+  bankName      String
+  accountType   AccountType
+  accountNumber String
+  agency        String?
+  balance       Float       @default(0)
+  currency      String      @default("BRL")
+  isActive      Boolean     @default(true)
+  connectedAt   DateTime    @default(now())
+  lastSyncAt    DateTime?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  // Relations
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  @@index([userId])
+  @@map("bank_accounts")
+}
+
+model Transaction {
+  id           String            @id @default(cuid())
+  accountId    String
+  amount       Float
+  type         TransactionType
+  category     String
+  subcategory  String?
+  description  String
+  merchantName String?
+  date         DateTime
+  status       TransactionStatus @default(COMPLETED)
+  tags         String[]
+  latitude     Float?
+  longitude    Float?
+  address      String?
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  // Relations
+  account BankAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId])
+  @@index([date])
+  @@index([category])
+  @@map("transactions")
+}
+
+model OpenFinanceConnection {
+  id              String           @id @default(cuid())
+  userId          String
+  institutionId   String
+  institutionName String
+  consentId       String
+  accessToken     String
+  refreshToken    String
+  expiresAt       DateTime
+  permissions     String[]
+  status          ConnectionStatus @default(ACTIVE)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([institutionId])
+  @@map("open_finance_connections")
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  userId    String
+  content   String   @db.Text
+  role      ChatRole
+  timestamp DateTime @default(now())
+  tokens    Int?
+  model     String?
+  context   Json?
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([timestamp])
+  @@map("chat_messages")
+}
+
+model FinancialInsight {
+  id          String        @id @default(cuid())
+  userId      String
+  type        InsightType
+  title       String
+  description String        @db.Text
+  data        Json
+  priority    Priority      @default(MEDIUM)
+  isRead      Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([type])
+  @@index([isRead])
+  @@map("financial_insights")
+}
+
+model BankInstitution {
+  id               String    @id @default(cuid())
+  name             String
+  code             String    @unique
+  logo             String
+  color            String
+  supportedProducts String[]
+  isActive         Boolean   @default(true)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@map("bank_institutions")
+}
+
+// Enums
+enum AccountType {
+  CHECKING
+  SAVINGS
+  CREDIT_CARD
+  INVESTMENT
+}
+
+enum TransactionType {
+  DEBIT
+  CREDIT
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
+
+enum ConnectionStatus {
+  ACTIVE
+  EXPIRED
+  REVOKED
+  ERROR
+}
+
+enum ChatRole {
+  user
+  assistant
+}
+
+enum InsightType {
+  EXPENSE_ANALYSIS
+  INCOME_ANALYSIS
+  BUDGET_ALERT
+  RECOMMENDATION
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+} 

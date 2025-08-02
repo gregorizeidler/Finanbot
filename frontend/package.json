@@ -1,0 +1,44 @@
+{
+  "name": "finanbot-frontend",
+  "version": "1.0.0",
+  "description": "FinanBot - Frontend React para assistente IA de finanças pessoais",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.8.4",
+    "axios": "^1.6.2",
+    "chart.js": "^4.4.0",
+    "clsx": "^2.0.0",
+    "date-fns": "^3.0.0",
+    "framer-motion": "^10.16.16",
+    "lucide-react": "^0.294.0",
+    "next": "^14.0.4",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.48.2",
+    "socket.io-client": "^4.7.4",
+    "tailwind-merge": "^2.1.0",
+    "tailwindcss-animate": "^1.0.7",
+    "zustand": "^4.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.4",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "^14.0.4",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.3.3"
+  }
+}

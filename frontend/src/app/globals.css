@@ -1,0 +1,247 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dark theme variables - applied by default */
+@layer base {
+  :root {
+    --background: 220 7% 3%;     /* #0a0a0a - fundo muito escuro */
+    --foreground: 0 0% 100%;     /* #ffffff - texto branco */
+    
+    --card: 220 6% 7%;           /* #1a1a1a - cards escuros */
+    --card-foreground: 0 0% 100%;
+    
+    --popover: 220 6% 7%;
+    --popover-foreground: 0 0% 100%;
+    
+    --primary: 142 76% 36%;      /* #16a34a - verde igual ao Pierre */
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 220 6% 11%;     /* #2a2a2a - elementos secundários */
+    --secondary-foreground: 0 0% 85%;
+    
+    --muted: 220 6% 11%;
+    --muted-foreground: 0 0% 64%;
+    
+    --accent: 142 76% 36%;       /* Verde para acentos */
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 220 6% 16%;        /* #3a3a3a - bordas sutis */
+    --input: 220 6% 11%;
+    --ring: 142 76% 36%;
+    
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+
+}
+
+/* Custom scrollbar - dark theme */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-neutral-950;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-neutral-700 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-neutral-600;
+}
+
+/* Chat message animations */
+.message-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.message-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Custom gradient backgrounds - dark theme */
+.gradient-finbot {
+  background: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #4ade80 100%);
+}
+
+.gradient-dark {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+}
+
+.gradient-success {
+  background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
+}
+
+.gradient-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #eab308 100%);
+}
+
+.gradient-error {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+/* Chart container styling */
+.chart-container {
+  position: relative;
+  height: 300px;
+  width: 100%;
+}
+
+.chart-container canvas {
+  border-radius: 8px;
+}
+
+/* Loading states - dark theme */
+.skeleton {
+  @apply animate-pulse bg-neutral-800 rounded;
+}
+
+.skeleton-text {
+  @apply h-4 bg-neutral-800 rounded animate-pulse;
+}
+
+.skeleton-avatar {
+  @apply w-10 h-10 bg-neutral-800 rounded-full animate-pulse;
+}
+
+/* Bank card styles - dark theme */
+.bank-card {
+  background: linear-gradient(135deg, var(--bank-color, #1a1a1a) 0%, var(--bank-color-dark, #2a2a2a) 100%);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bank-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+/* Custom focus styles */
+.focus-visible {
+  @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+}
+
+/* Typography improvements */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Button styles - dark theme */
+.btn-primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90 transition-colors;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors;
+}
+
+.btn-ghost {
+  @apply bg-transparent text-foreground hover:bg-secondary/50 transition-colors;
+}
+
+/* Card styles - dark theme */
+.card-dark {
+  @apply bg-card border border-border rounded-lg shadow-lg;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .container {
+    @apply px-4;
+  }
+  
+  .chart-container {
+    height: 250px;
+  }
+}
+
+/* Glow effects for accent elements */
+.glow-green {
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+}
+
+.glow-green:hover {
+  box-shadow: 0 0 30px rgba(34, 197, 94, 0.4);
+}
+
+/* Subtle Dark Theme Interactions */
+
+/* Smooth base transitions */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+/* Subtle hover effects */
+.hover-subtle {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-subtle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Glassmorphism (mantendo este efeito elegante) */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.glass:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Clean button hover */
+.btn-clean {
+  transition: all 0.2s ease;
+}
+
+.btn-clean:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.btn-clean:active {
+  transform: translateY(0);
+}
+
+/* Modern scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #16a34a;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #22c55e;
+}
